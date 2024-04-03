@@ -1,4 +1,4 @@
-package service;
+package service.csvService;
 
 import model.Produto;
 
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class FormatadorDados implements IFormatadorDados{
     @Override
-    public List<Produto> transformarDados(List<String> dadosBrutos) {
+    public List<Produto> transformarCSVParaProdutos(List<String> dadosBrutos) {
         return dadosBrutos.stream().skip(1)
                 .map(linha -> linha.split(","))
                 .filter(arr -> arr.length == 4)

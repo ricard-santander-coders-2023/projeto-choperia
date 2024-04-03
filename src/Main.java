@@ -1,16 +1,16 @@
+import controller.EstoqueController;
 import model.Estoque;
-import service.FormatadorDados;
-import service.IFormatadorDados;
-import service.ILeitorCSV;
-import service.LeitorCSV;
+import service.csvService.*;
 
 public class Main {
     public static void main(String[] args) {
         ILeitorCSV leitorCSV = new LeitorCSV();
         IFormatadorDados formatadorDados = new FormatadorDados();
+        EscritorCSV escritorCSV = new EscritorCSV();
 
         Estoque estoque = new Estoque(leitorCSV,formatadorDados);
+        EstoqueController estoqueController = new EstoqueController(estoque, escritorCSV);
 
-        System.out.println(estoque.getProdutos());
+        estoqueController.escreverNovoCSV();
     }
 }

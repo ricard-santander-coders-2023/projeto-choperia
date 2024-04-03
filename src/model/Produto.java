@@ -16,6 +16,22 @@ public class Produto {
         this.validade = validade;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getFabricante() {
+        return fabricante;
+    }
+
+    public String getLote() {
+        return lote;
+    }
+
+    public LocalDate getValidade() {
+        return validade;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
