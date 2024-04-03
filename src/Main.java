@@ -1,11 +1,13 @@
 import model.Estoque;
 import service.FormatadorDados;
+import service.IFormatadorDados;
+import service.ILeitorCSV;
 import service.LeitorCSV;
 
 public class Main {
     public static void main(String[] args) {
-        LeitorCSV leitorCSV = new LeitorCSV();
-        FormatadorDados formatadorDados = new FormatadorDados();
+        ILeitorCSV leitorCSV = new LeitorCSV();
+        IFormatadorDados formatadorDados = new FormatadorDados();
 
         Estoque estoque = new Estoque(leitorCSV,formatadorDados);
 

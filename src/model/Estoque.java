@@ -14,7 +14,7 @@ public class Estoque {
     }
 
     public void inicializarDados(ILeitorCSV leitorCSV, IFormatadorDados formatadorDados) {
-        String diretorio = "arquivos/file.csv";
+        String diretorio = "arquivos/file_1.csv";
         try {
             List<String> dadosBrutos = leitorCSV.lerArquivo(diretorio);
             produtos = formatadorDados.transformarDados(dadosBrutos);

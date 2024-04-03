@@ -8,10 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FormatadorDados implements IFormatadorDados{
-    public static void main(String[] args) {
-
-    }
-
     @Override
     public List<Produto> transformarDados(List<String> dadosBrutos) {
         return dadosBrutos.stream().skip(1)
