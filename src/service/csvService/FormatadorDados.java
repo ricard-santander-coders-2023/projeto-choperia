@@ -12,8 +12,8 @@ public class FormatadorDados implements IFormatadorDados{
     public List<Produto> transformarCSVParaProdutos(List<String> dadosBrutos) {
         return dadosBrutos.stream().skip(1)
                 .map(linha -> linha.split(","))
-                .filter(arr -> arr.length == 4)
-                .map(arr -> new Produto(arr[0],arr[1],arr[2],formatarData(arr[3])))
+                .filter(arr -> arr.length == 5)
+                .map(arr -> new Produto(arr[0],arr[1],arr[2],formatarData(arr[3]),arr[4]))
                 .collect(Collectors.toList());
     }
 

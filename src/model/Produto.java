@@ -5,23 +5,25 @@ import java.util.Objects;
 
 public class Produto {
     private String id;
-    private String fabricante;
+    private String nomeProduto;
     private String lote;
     private LocalDate validade;
+    private String quantidade;
 
-    public Produto(String id, String fabricante, String lote, LocalDate validade) {
+    public Produto(String id, String nomeProduto, String lote, LocalDate validade, String quantidade) {
         this.id = id;
-        this.fabricante = fabricante;
+        this.nomeProduto = nomeProduto;
         this.lote = lote;
         this.validade = validade;
+        this.quantidade = quantidade;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getFabricante() {
-        return fabricante;
+    public String getNomeProduto() {
+        return nomeProduto;
     }
 
     public String getLote() {
@@ -30,6 +32,10 @@ public class Produto {
 
     public LocalDate getValidade() {
         return validade;
+    }
+
+    public int getQuantidade() {
+        return Integer.parseInt(quantidade);
     }
 
     @Override
@@ -47,11 +53,10 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "Produto{" +
-                "id='" + id + '\'' +
-                ", fabricante='" + fabricante + '\'' +
-                ", lote='" + lote + '\'' +
-                ", validade=" + validade +
-                '}';
+        return "===== Produto ===== \n" +
+                "id: " + id + '\n' +
+                "Nome Produto='" + nomeProduto + '\n' +
+                "lote: " + lote + '\n' +
+                "validade: " + validade;
     }
 }
