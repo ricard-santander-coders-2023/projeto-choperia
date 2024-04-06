@@ -23,11 +23,12 @@ public class EstoqueController {
     }
 
     private String produtoParaCSV(Produto produto) {
-        return String.format("%s,%s,%s,%s",
+        return String.format("%s,%s,%s,%s,%d",
                 produto.getId(),
-                produto.getFabricante(),
+                produto.getNomeProduto(),
                 produto.getLote(),
-                produto.getValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                produto.getValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                produto.getQuantidade());
     }
 
 }

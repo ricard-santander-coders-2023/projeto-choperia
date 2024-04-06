@@ -7,7 +7,7 @@ import java.util.List;
 
 public class EscritorCSV {
     public void escreverArquivo(List<String> linhas) {
-        String cabecalho = "id,fabricante,lote,validade";
+        String cabecalho = "id,nome_produto,lote,validade, quantidade";
         linhas.add(0,cabecalho);
         Path caminho = caminhoNovoArquivo();
 
