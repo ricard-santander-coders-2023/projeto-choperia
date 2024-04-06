@@ -9,6 +9,7 @@ public class Produto {
     private String lote;
     private LocalDate validade;
     private String quantidade;
+    private int quantidadeMaxima;
 
     public Produto(String id, String nomeProduto, String lote, LocalDate validade, String quantidade) {
         this.id = id;
@@ -16,6 +17,10 @@ public class Produto {
         this.lote = lote;
         this.validade = validade;
         this.quantidade = quantidade;
+    }
+
+    public int getQuantidadeMaxima() {
+        return quantidadeMaxima;
     }
 
     public String getId() {
@@ -36,6 +41,10 @@ public class Produto {
 
     public int getQuantidade() {
         return Integer.parseInt(quantidade);
+    }
+
+    public void setQuantidade(String quantidade) {
+        this.quantidade = quantidade;
     }
 
     @Override
@@ -59,4 +68,5 @@ public class Produto {
                 "lote: " + lote + '\n' +
                 "validade: " + validade;
     }
+
 }

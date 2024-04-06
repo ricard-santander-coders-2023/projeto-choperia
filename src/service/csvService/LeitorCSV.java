@@ -11,7 +11,8 @@ public class LeitorCSV implements ILeitorCSV{
     @Override
     public List<String> lerArquivo(String diretorio) throws IOException {
         try (Stream<String> lines = Files.lines(Path.of(diretorio))) {
-            return lines.collect(Collectors.toList());
+            return lines.filter(line -> !line.endsWith(",0") && !line.endsWith(",0\n"))
+                    .toList();
         }
     }
 }
