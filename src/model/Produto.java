@@ -8,8 +8,8 @@ public class Produto {
     private String nomeProduto;
     private String lote;
     private LocalDate validade;
-    private String quantidade;
-    private int quantidadeMaxima;
+    private String quantidade;// Define the maximum quantity per lot
+
 
     public Produto(String id, String nomeProduto, String lote, LocalDate validade, String quantidade) {
         this.id = id;
@@ -19,9 +19,6 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public int getQuantidadeMaxima() {
-        return quantidadeMaxima;
-    }
 
     public String getId() {
         return id;
@@ -34,6 +31,11 @@ public class Produto {
     public String getLote() {
         return lote;
     }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+
 
     public LocalDate getValidade() {
         return validade;
@@ -62,11 +64,11 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "===== Produto ===== \n" +
-                "id: " + id + '\n' +
-                "Nome Produto='" + nomeProduto + '\n' +
-                "lote: " + lote + '\n' +
-                "validade: " + validade;
+        return "\n===== Produto =====" +
+                "\nid: " + id +
+                "\nNome Produto=" + nomeProduto +
+                "\nlote: " + lote +
+                "\nvalidade: " + validade;
     }
 
 }

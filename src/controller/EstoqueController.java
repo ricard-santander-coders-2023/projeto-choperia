@@ -2,12 +2,13 @@ package controller;
 
 import model.Estoque;
 import model.Produto;
-import service.csvService.EscritorCSV;
+import service.csvService.Estoque.EscritorCSV;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class EstoqueController {
@@ -20,7 +21,7 @@ public class EstoqueController {
     }
 
     public void escreverNovoCSV() {
-        List<String> produtosString = estoque.getProdutos().stream().map(this::produtoParaCSV).collect(Collectors.toList());
+        List<String> produtosString = estoque.getProdutos().stream().map(this::produtoParaCSV).toList();
         escritorCSV.escreverArquivo(produtosString);
     }
 
@@ -33,21 +34,36 @@ public class EstoqueController {
                 produto.getQuantidade());
     }
 
-    public void aumentaEstoque(String idProduto, String lote, int quantidade) {
+    public void cadastraProduto(String id, String nomeProduto, String lote, LocalDate validade, int quantidade) {
 
-        List<Produto> produtos = estoque.getProdutos().stream()
-                .filter(p -> p.getId().equals(idProduto) && p.getLote().equals(lote))
-                .sorted(Comparator.comparing(Produto::getValidade))
-                .toList();
+        if (quantidade <= 0) {
+            System.out.println("Quantidade não pode ser menor ou igual a zero!");
+            return; // Exit the method gracefully
+        }
 
-        for (Produto produto : produtos) {
-            if (quantidade == 0) {
-                break;
+        boolean produtoExists = estoque.getProdutos().stream()
+                .anyMatch(p -> p.getLote().equals(lote));
+
+        if (produtoExists) {
+            System.out.println("Já existe um produto com esse lote!");
+            return;
+        }
+
+        int quantidadeMaximaPorLote = estoque.getQuantidadeMaximaPorLote();
+
+
+        while (quantidade > 0) {
+            int quantidadeAAdicionar = Math.min(quantidade, quantidadeMaximaPorLote);
+
+            for (Produto produto : estoque.getProdutos()) {
+                if (Objects.equals(produto.getId(), id)) {
+                    nomeProduto = produto.getNomeProduto();
+                    break;
+                }
             }
-            int diff = produto.getQuantidadeMaxima() - produto.getQuantidade();
-            int quantityToAdd = Math.min(diff, quantidade);
-            produto.setQuantidade(String.valueOf(produto.getQuantidade() + quantityToAdd));
-            quantidade -= quantityToAdd;
+            Produto novoProduto = new Produto(id, nomeProduto, lote, validade, String.valueOf(quantidadeAAdicionar));
+            estoque.getProdutos().add(novoProduto);
+            quantidade -= quantidadeAAdicionar;
         }
     }
 
@@ -74,6 +90,27 @@ public class EstoqueController {
                 quantidade -= quantidadeDisponivel;
             }
         }
+    }
+
+    public void renomearProduto(String idProduto, String novoNome) {
+        List<Produto> produtos = estoque.getProdutos();
+        boolean nomeAlterado = false;
+        boolean nomeIgual = false;
+        for (Produto produto : produtos) {
+            if (Objects.equals(produto.getId(), idProduto)) {
+                produto.setNomeProduto(novoNome);
+                nomeAlterado = true;
+            }
+            if(produto.getNomeProduto() == novoNome){
+                nomeIgual = true;
+                break;
+            }
+        }
+        if(nomeIgual){
+            System.out.println("Nome igual ao anterior. Operação cancelada!");
+            return;
+        }
+        System.out.println(nomeAlterado? "Nome produto alterado com sucesso!": "Não há produtos com essa ID");
     }
 
     public void verificaValidade() {

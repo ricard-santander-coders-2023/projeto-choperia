@@ -1,15 +1,16 @@
-package service.csvService;
+package service.csvService.Estoque;
 
 import model.Produto;
+import service.csvService.IFormatadorDados;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FormatadorDados implements IFormatadorDados{
+public class FormatadorDados implements IFormatadorDados<Produto> {
     @Override
-    public List<Produto> transformarCSVParaProdutos(List<String> dadosBrutos) {
+    public List<Produto> transformarCSVParaDados(List<String> dadosBrutos) {
         return dadosBrutos.stream().skip(1)
                 .map(linha -> linha.split(","))
                 .filter(arr -> arr.length == 5)
