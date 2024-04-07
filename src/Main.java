@@ -1,16 +1,20 @@
-import controller.EstoqueController;
+package main;
+
 import model.Estoque;
-import service.csvService.*;
+import service.csvService.CSVReader;
+import service.csvService.CSVWriter;
+import service.csvService.DataFormatter;
+import controller.EstoqueController;
 
 public class Main {
     public static void main(String[] args) {
-        ILeitorCSV leitorCSV = new LeitorCSV();
-        IFormatadorDados formatadorDados = new FormatadorDados();
-        EscritorCSV escritorCSV = new EscritorCSV();
+        CSVReader csvReader = new CSVReader();
+        DataFormatter dataFormatter = new DataFormatter();
+        CSVWriter csvWriter = new CSVWriter();
 
-        Estoque estoque = new Estoque(leitorCSV,formatadorDados);
-        EstoqueController estoqueController = new EstoqueController(estoque, escritorCSV);
+        Estoque stock = new Estoque(csvReader, dataFormatter);
+        EstoqueController stockController = new EstoqueController(stock, csvWriter);
 
-        estoqueController.escreverNovoCSV();
+        stockController.writeNewCSV();
     }
 }
