@@ -1,8 +1,10 @@
 package model;
 
-import service.csvService.CSVReader;
-import service.csvService.DataFormatter;
-import service.csvService.FileList;
+import service.csvService.Estoque.FormatadorDados;
+import service.csvService.Estoque.LeitorCSV;
+import service.csvService.IFormatadorDados;
+import service.csvService.ILeitorCSV;
+import service.csvService.Estoque.ListaDeArquivos;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,15 +12,22 @@ import java.util.List;
 public class Estoque {
     private List<Produto> produtos;
 
-    public Estoque(CSVReader csvReader, DataFormatter dataFormatter) {
-        inicializarDados(csvReader, dataFormatter);
+
+    private static final int QUANTIDADE_MAXIMA_POR_LOTE = 15;
+
+    public static int getQuantidadeMaximaPorLote() {
+        return QUANTIDADE_MAXIMA_POR_LOTE;
     }
 
-    public void inicializarDados(CSVReader csvReader, DataFormatter dataFormatter) {
-        String directory = FileList.getFormattedDirectory(FileList.getLastFileNumber());
+    public Estoque(LeitorCSV leitorCSV, FormatadorDados formatadorDados) {
+        inicializarDados(leitorCSV,formatadorDados);
+    }
+
+    public void inicializarDados(LeitorCSV leitorCSV, FormatadorDados formatadorDados) {
+        String diretorio = ListaDeArquivos.getDiretorioFormatado(ListaDeArquivos.getUltimoNumArquivo());
         try {
-            List<String> rawData = csvReader.readFile(directory);
-            produtos = dataFormatter.transformCSVtoProducts(rawData);
+            List<String> dadosBrutos = leitorCSV.lerArquivo(diretorio);
+            produtos = formatadorDados.transformarCSVParaDados(dadosBrutos);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

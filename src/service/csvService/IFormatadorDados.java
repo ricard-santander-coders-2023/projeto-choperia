@@ -1,10 +1,7 @@
 package service.csvService;
 
-import model.Produto;
-
 import java.util.List;
 
-public interface IFormatadorDados {
-    List<Produto> transformarCSVParaProdutos(List<String> dadosBrutos);
-
+public interface IFormatadorDados<T> {
+    List<T> transformarCSVParaDados(List<String> dadosBrutos);
 }
