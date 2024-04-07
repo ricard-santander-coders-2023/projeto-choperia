@@ -1,49 +1,48 @@
 package model;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
-public class Produto {
+public class Product {
     private String id;
-    private String nomeProduto;
-    private String lote;
-    private LocalDate validade;
-    private String quantidade;
+    private String productName;
+    private String lot;
+    private LocalDate expirationDate;
+    private int quantity;
 
-    public Produto(String id, String nomeProduto, String lote, LocalDate validade, String quantidade) {
+    public Product(String id, String productName, String lot, LocalDate expirationDate, int quantity) {
         this.id = id;
-        this.nomeProduto = nomeProduto;
-        this.lote = lote;
-        this.validade = validade;
-        this.quantidade = quantidade;
+        this.productName = productName;
+        this.lot = lot;
+        this.expirationDate = expirationDate;
+        this.quantity = quantity;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getNomeProduto() {
-        return nomeProduto;
+    public String getProductName() {
+        return productName;
     }
 
-    public String getLote() {
-        return lote;
+    public String getLot() {
+        return lot;
     }
 
-    public LocalDate getValidade() {
-        return validade;
+    public LocalDate getExpirationDate() {
+        return expirationDate;
     }
 
-    public int getQuantidade() {
-        return Integer.parseInt(quantidade);
+    public int getQuantity() {
+        return quantity;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Produto produto = (Produto) o;
-        return Objects.equals(id, produto.id);
+        if (o == null || getClass()!= o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
     }
 
     @Override
@@ -53,10 +52,10 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "===== Produto ===== \n" +
+        return "===== Product ===== \n" +
                 "id: " + id + '\n' +
-                "Nome Produto='" + nomeProduto + '\n' +
-                "lote: " + lote + '\n' +
-                "validade: " + validade;
+                "Product Name='" + productName + '\n' +
+                "Lot: " + lot + '\n' +
+                "Expiration Date: " + expirationDate;
     }
 }
