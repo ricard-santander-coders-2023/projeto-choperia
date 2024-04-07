@@ -1,5 +1,7 @@
 package model;
 
+import service.csvService.Estoque.FormatadorDados;
+import service.csvService.Estoque.LeitorCSV;
 import service.csvService.IFormatadorDados;
 import service.csvService.ILeitorCSV;
 import service.csvService.Estoque.ListaDeArquivos;
@@ -17,11 +19,11 @@ public class Estoque {
         return QUANTIDADE_MAXIMA_POR_LOTE;
     }
 
-    public Estoque(ILeitorCSV leitorCSV, IFormatadorDados formatadorDados) {
+    public Estoque(LeitorCSV leitorCSV, FormatadorDados formatadorDados) {
         inicializarDados(leitorCSV,formatadorDados);
     }
 
-    public void inicializarDados(ILeitorCSV leitorCSV, IFormatadorDados formatadorDados) {
+    public void inicializarDados(LeitorCSV leitorCSV, FormatadorDados formatadorDados) {
         String diretorio = ListaDeArquivos.getDiretorioFormatado(ListaDeArquivos.getUltimoNumArquivo());
         try {
             List<String> dadosBrutos = leitorCSV.lerArquivo(diretorio);

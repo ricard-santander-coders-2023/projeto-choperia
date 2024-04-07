@@ -1,25 +1,21 @@
 import controller.ClienteController;
 import controller.EstoqueController;
 import model.CadastroClientes;
-import model.Cliente;
 import model.Estoque;
-import model.Produto;
 import service.csvService.Cliente.ClienteEscritorCSV;
 import service.csvService.Cliente.ClienteFormatadorDados;
 import service.csvService.Cliente.ClienteLeitorCSV;
 import service.csvService.Estoque.EscritorCSV;
 import service.csvService.Estoque.FormatadorDados;
-import service.csvService.IFormatadorDados;
-import service.csvService.ILeitorCSV;
 import service.csvService.Estoque.LeitorCSV;
 
 public class Main {
     public static void main(String[] args) {
-        ILeitorCSV leitorCSV = new LeitorCSV();
-        ILeitorCSV clientesCSV = new ClienteLeitorCSV();
+        LeitorCSV leitorCSV = new LeitorCSV();
+        ClienteLeitorCSV clientesCSV = new ClienteLeitorCSV();
 
-        IFormatadorDados<Produto> formatadorDados = new FormatadorDados();
-        IFormatadorDados<Cliente> clientesFormatados = new ClienteFormatadorDados();
+        FormatadorDados formatadorDados = new FormatadorDados();
+        ClienteFormatadorDados clientesFormatados = new ClienteFormatadorDados();
 
         EscritorCSV escritorCSV = new EscritorCSV();
         ClienteEscritorCSV clienteEscritorCSV = new ClienteEscritorCSV();
