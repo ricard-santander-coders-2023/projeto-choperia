@@ -3,6 +3,7 @@ package controller;
 import model.CadastroClientes;
 import model.Cliente;
 import service.csvService.Cliente.ClienteEscritorCSV;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,14 @@ public class ClienteController {
     }
 
     public void cadastraCliente(String nome, String documento) {
-            clientes.getClientes().add(new Cliente(nome, documento));
+        for (Cliente cliente : clientes.getClientes()) {
+
+            if (Objects.equals(cliente.getDocumento(), documento)) {
+                System.out.println("Já existe um cliente com esse documento!" + cliente);
+                break;
+            }
+        }
+        clientes.getClientes().add(new Cliente(nome, documento));
     }
 
     public void removeCliente(String documento) {

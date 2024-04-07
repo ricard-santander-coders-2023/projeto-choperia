@@ -41,8 +41,8 @@ public class Cliente {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipo() {
+        this.tipo = documento.length() == 14? "PJ" : "PF";
     }
 
     @Override

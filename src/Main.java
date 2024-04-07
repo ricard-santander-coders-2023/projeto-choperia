@@ -28,12 +28,13 @@ public class Main {
         CadastroClientes clientes = new CadastroClientes(clientesCSV, clientesFormatados);
 
 
-        System.out.println(clientes.getClientes());
+//        System.out.println(clientes.getClientes());
 
-//        EstoqueController estoqueController = new EstoqueController(estoque, escritorCSV);
+        EstoqueController estoqueController = new EstoqueController(estoque, escritorCSV);
         ClienteController clienteController = new ClienteController(clientes, clienteEscritorCSV);
 
-        clienteController.cadastraCliente("Teste", "12313131312");
+        clienteController.cadastraCliente("Boteco do Zé", "11231313131200");
+        clienteController.cadastraCliente("Sr Juca", "88822244466");
 //
 //        estoqueController.renomearProduto("A01", "Ada Pielsen");
 

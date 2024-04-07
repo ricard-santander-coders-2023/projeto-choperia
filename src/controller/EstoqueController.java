@@ -74,14 +74,16 @@ public class EstoqueController {
                 .sorted(Comparator.comparing(Produto::getValidade).thenComparing(Produto::getLote))
                 .toList();
 
+        int quantidadeTotalDisponivel = produtos.stream().mapToInt(Produto::getQuantidade).sum();
 
         for (Produto produto : produtos) {
-            int quantidadeTotalDisponivel = produtos.stream().mapToInt(Produto::getQuantidade).sum();
+            int quantidadeDisponivel = produto.getQuantidade();
+
             if (quantidadeTotalDisponivel < quantidade) {
                 System.out.println(("Quantidade insuficiente em estoque.\nRestante: " + produtos.stream().mapToInt(Produto::getQuantidade).sum()) + " litros");
                 break;
             }
-            int quantidadeDisponivel = produto.getQuantidade();
+
             if (quantidadeDisponivel >= quantidade) {
                 produto.setQuantidade(String.valueOf(quantidadeDisponivel - quantidade));
                 return;
@@ -101,7 +103,7 @@ public class EstoqueController {
                 produto.setNomeProduto(novoNome);
                 nomeAlterado = true;
             }
-            if(produto.getNomeProduto() == novoNome){
+            if(Objects.equals(produto.getNomeProduto(), novoNome)){
                 nomeIgual = true;
                 break;
             }
@@ -123,7 +125,6 @@ public class EstoqueController {
             if (produto.getValidade().isBefore(dataAtual)) {
                 System.out.println("REMOVIDO ==> " + produto.getId() + " - " + produto.getLote() + " - " + produto.getQuantidade());
                 diminuiEstoque(produto.getId(), produto.getQuantidade());
-//                System.out.println("Produto expirado: \n" + produtoParaCSV(produto));
             } else {
                 System.out.println("Produto com lote próximo ao vencimento: \n" + produtoParaCSV(produto));
             }

@@ -1,7 +1,5 @@
 package service.csvService.Cliente;
 
-import model.Cliente;
-import service.csvService.Estoque.ListaDeArquivos;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,13 +18,19 @@ public class ClienteEscritorCSV {
 
         linhas.add(0, cabecalho);
 
-        Path caminho = Path.of(ListaDeArquivos.getDiretorioFormatado(0));
+        Path caminho = caminhoNovoArquivo();
 
         try {
-            Files.createFile(caminho);
+            if(!Files.exists(caminho)) {
+                Files.createFile(caminho);
+            }
             Files.write(caminho, linhas);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public Path caminhoNovoArquivo() {
+        return Path.of(ClienteListaDeArquivos.getDiretorioFormatado());
     }
 }
