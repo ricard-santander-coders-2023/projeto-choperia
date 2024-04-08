@@ -1,10 +1,4 @@
-  ______  
- /       \ 
- | ADA   | 
- | CHOPP | 
- \______/
-
-# Sistema de Gerenciamento de Estoque e Clientes
+ # Sistema de Gerenciamento de Estoque e Clientes
 
 Este sistema fornece uma solução completa para o gerenciamento de estoque de produtos e cadastro de clientes, permitindo operações como adição, remoção, e atualização de produtos e clientes, além da geração de relatórios em formato CSV.
 
