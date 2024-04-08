@@ -68,7 +68,8 @@ public class Produto {
                 "\nid: " + id +
                 "\nNome Produto=" + nomeProduto +
                 "\nlote: " + lote +
-                "\nvalidade: " + validade;
+                "\nvalidade: " + validade +
+                "\nquantidade: " + quantidade;
     }
 
 }

@@ -75,11 +75,7 @@ public class EstoqueController {
     }
 
     public void removerTodosProdutos() {
-        List<Produto> produtosParaRemover = estoque.getProdutos();
-        for (Produto produto : produtosParaRemover) {
-            alterarQuantidadeDoProduto(produto.getId(), produto.getQuantidade());
-            System.out.println("REMOVIDO ==> " + produto.getId() + " - " + produto.getLote() + " - " + produto.getQuantidade());
-        }
+        estoque.getProdutos().clear();
     }
 
     public void alterarQuantidadeDoProduto(String idProduto, int quantidade) {
@@ -105,6 +101,19 @@ public class EstoqueController {
                 produto.setQuantidade(String.valueOf(0));
                 quantidade -= quantidadeDisponivel;
             }
+        }
+    }
+
+    public void verProdutos(){
+        if (estoque.getProdutos().isEmpty()){
+            System.out.println("Estoque vazio!");
+        }
+        for (Produto produto : estoque.getProdutos()) {
+            System.out.println(produto.getId() + " - " +
+                    produto.getLote() + " - " +
+                    produto.getQuantidade() + " - " +
+                    produto.getValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " - " +
+                    produto.getNomeProduto());
         }
     }
 
