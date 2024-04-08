@@ -138,7 +138,7 @@ public class EstoqueController {
         System.out.println(nomeAlterado? "Nome produto alterado com sucesso!": "Não há produtos com essa ID");
     }
 
-    public void verificaValidade() {
+    public void removerProdutosVencidos() {
         LocalDate dataAtual = LocalDate.now();
         List<Produto> produtosParaRemover = estoque.getProdutos().stream()
                 .filter(p -> p.getValidade().minusDays(20).isBefore(dataAtual))

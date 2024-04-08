@@ -36,7 +36,7 @@ public class Main {
 
 
 //        estoqueController.cadastraProduto("A01","aaaa", "L0031", LocalDate.now(), 35); //String id, String nomeProduto, String lote, LocalDate validade, int quantidade
-//        estoqueController.verificaValidade();
+        estoqueController.removerProdutosVencidos();
 
         estoqueController.alterarQuantidadeDoProduto("A01", 15);
 
