@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Produto {
@@ -70,6 +71,14 @@ public class Produto {
                 "\nlote: " + lote +
                 "\nvalidade: " + validade +
                 "\nquantidade: " + quantidade;
+    }
+
+    public String toStringFormatado() {
+        return id + " - " +
+                lote + " - " +
+                quantidade + " - " +
+                validade.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " - " +
+                nomeProduto;
     }
 
 }

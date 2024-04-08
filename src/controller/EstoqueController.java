@@ -107,14 +107,10 @@ public class EstoqueController {
     public void verProdutos(){
         if (estoque.getProdutos().isEmpty()){
             System.out.println("Estoque vazio!");
+            return;
         }
-        for (Produto produto : estoque.getProdutos()) {
-            System.out.println(produto.getId() + " - " +
-                    produto.getLote() + " - " +
-                    produto.getQuantidade() + " - " +
-                    produto.getValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " - " +
-                    produto.getNomeProduto());
-        }
+
+        estoque.getProdutos().forEach(produto -> System.out.println(produto.toStringFormatado()));
     }
 
     public void renomearProduto(String idProduto, String novoNome) {
