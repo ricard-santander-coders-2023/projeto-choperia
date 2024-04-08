@@ -66,6 +66,14 @@ public class EstoqueController {
         }
     }
 
+    public void removerProduto (String id, String lote) {
+        boolean removido = estoque.getProdutos()
+                                    .removeIf(produto -> produto.getId().equals(id) && produto.getLote().equals(lote));
+        System.out.println(removido
+                ? "REMOVIDO ==> " + id + " - " + lote
+                : "Produto não encontrado com ID " + id + " e lote " + lote);
+    }
+
     public void removerTodosProdutos() {
         List<Produto> produtosParaRemover = estoque.getProdutos();
         for (Produto produto : produtosParaRemover) {
