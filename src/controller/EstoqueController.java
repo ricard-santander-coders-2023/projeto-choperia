@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class EstoqueController {
     private Estoque estoque;
@@ -34,7 +33,7 @@ public class EstoqueController {
                 produto.getQuantidade());
     }
 
-    public void cadastraProduto(String id, String nomeProduto, String lote, LocalDate validade, int quantidade) {
+    public void adicionarProduto(String id, String nomeProduto, String lote, LocalDate validade, int quantidade) {
 
         if (quantidade <= 0) {
             System.out.println("Quantidade não pode ser menor ou igual a zero!");
@@ -67,8 +66,15 @@ public class EstoqueController {
         }
     }
 
+    public void removerTodosProdutos() {
+        List<Produto> produtosParaRemover = estoque.getProdutos();
+        for (Produto produto : produtosParaRemover) {
+            alterarQuantidadeDoProduto(produto.getId(), produto.getQuantidade());
+            System.out.println("REMOVIDO ==> " + produto.getId() + " - " + produto.getLote() + " - " + produto.getQuantidade());
+        }
+    }
 
-    public void diminuiEstoque(String idProduto, int quantidade) {
+    public void alterarQuantidadeDoProduto(String idProduto, int quantidade) {
         List<Produto> produtos = estoque.getProdutos().stream()
                 .filter(p -> p.getId().equals(idProduto))
                 .sorted(Comparator.comparing(Produto::getValidade).thenComparing(Produto::getLote))
@@ -124,12 +130,11 @@ public class EstoqueController {
         for (Produto produto : produtosParaRemover) {
             if (produto.getValidade().isBefore(dataAtual)) {
                 System.out.println("REMOVIDO ==> " + produto.getId() + " - " + produto.getLote() + " - " + produto.getQuantidade());
-                diminuiEstoque(produto.getId(), produto.getQuantidade());
+                alterarQuantidadeDoProduto(produto.getId(), produto.getQuantidade());
             } else {
                 System.out.println("Produto com lote próximo ao vencimento: \n" + produtoParaCSV(produto));
             }
         }
     }
-
 }
 

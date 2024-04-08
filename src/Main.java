@@ -29,8 +29,8 @@ public class Main {
         EstoqueController estoqueController = new EstoqueController(estoque, escritorCSV);
         ClienteController clienteController = new ClienteController(clientes, clienteEscritorCSV);
 
-        clienteController.cadastraCliente("Boteco do Zé", "11231313131200");
-        clienteController.cadastraCliente("Sr Juca", "88822244466");
+//        clienteController.cadastraCliente("Boteco do Zé", "11231313131200");
+//        clienteController.cadastraCliente("Sr Juca", "88822244466");
 //
 //        estoqueController.renomearProduto("A01", "Ada Pielsen");
 
@@ -38,11 +38,13 @@ public class Main {
 //        estoqueController.cadastraProduto("A01","aaaa", "L0031", LocalDate.now(), 35); //String id, String nomeProduto, String lote, LocalDate validade, int quantidade
 //        estoqueController.verificaValidade();
 
-//        estoqueController.diminuiEstoque("A01", 15);
-//        estoqueController.diminuiEstoque("A01", 35);
-//        estoqueController.diminuiEstoque("A01", 35);
+        estoqueController.alterarQuantidadeDoProduto("A01", 15);
+//        estoqueController.alterarQuantidadeDoProduto("A01", 35);
+//        estoqueController.alterarQuantidadeDoProduto("A01", 35);
 
-//        estoqueController.escreverNovoCSV();
-        clienteController.escreverNovoCSV();
+
+//        clienteController.escreverNovoCSV();
+//        estoqueController.removerTodosProdutos();
+        estoqueController.escreverNovoCSV();
     }
 }
