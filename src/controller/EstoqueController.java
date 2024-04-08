@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class EstoqueController {
     private Estoque estoque;
@@ -34,7 +33,7 @@ public class EstoqueController {
                 produto.getQuantidade());
     }
 
-    public void cadastraProduto(String id, String nomeProduto, String lote, LocalDate validade, int quantidade) {
+    public void adicionarProduto(String id, String nomeProduto, String lote, LocalDate validade, int quantidade) {
 
         if (quantidade <= 0) {
             System.out.println("Quantidade não pode ser menor ou igual a zero!");
@@ -67,8 +66,19 @@ public class EstoqueController {
         }
     }
 
+    public void removerProduto (String id, String lote) {
+        boolean removido = estoque.getProdutos()
+                                    .removeIf(produto -> produto.getId().equals(id) && produto.getLote().equals(lote));
+        System.out.println(removido
+                ? "REMOVIDO ==> " + id + " - " + lote
+                : "Produto não encontrado com ID " + id + " e lote " + lote);
+    }
 
-    public void diminuiEstoque(String idProduto, int quantidade) {
+    public void removerTodosProdutos() {
+        estoque.getProdutos().clear();
+    }
+
+    public void alterarQuantidadeDoProduto(String idProduto, int quantidade) {
         List<Produto> produtos = estoque.getProdutos().stream()
                 .filter(p -> p.getId().equals(idProduto))
                 .sorted(Comparator.comparing(Produto::getValidade).thenComparing(Produto::getLote))
@@ -94,6 +104,19 @@ public class EstoqueController {
         }
     }
 
+    public void verProdutos(){
+        if (estoque.getProdutos().isEmpty()){
+            System.out.println("Estoque vazio!");
+        }
+        for (Produto produto : estoque.getProdutos()) {
+            System.out.println(produto.getId() + " - " +
+                    produto.getLote() + " - " +
+                    produto.getQuantidade() + " - " +
+                    produto.getValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " - " +
+                    produto.getNomeProduto());
+        }
+    }
+
     public void renomearProduto(String idProduto, String novoNome) {
         List<Produto> produtos = estoque.getProdutos();
         boolean nomeAlterado = false;
@@ -115,7 +138,7 @@ public class EstoqueController {
         System.out.println(nomeAlterado? "Nome produto alterado com sucesso!": "Não há produtos com essa ID");
     }
 
-    public void verificaValidade() {
+    public void removerProdutosVencidos() {
         LocalDate dataAtual = LocalDate.now();
         List<Produto> produtosParaRemover = estoque.getProdutos().stream()
                 .filter(p -> p.getValidade().minusDays(20).isBefore(dataAtual))
@@ -124,12 +147,11 @@ public class EstoqueController {
         for (Produto produto : produtosParaRemover) {
             if (produto.getValidade().isBefore(dataAtual)) {
                 System.out.println("REMOVIDO ==> " + produto.getId() + " - " + produto.getLote() + " - " + produto.getQuantidade());
-                diminuiEstoque(produto.getId(), produto.getQuantidade());
+                alterarQuantidadeDoProduto(produto.getId(), produto.getQuantidade());
             } else {
                 System.out.println("Produto com lote próximo ao vencimento: \n" + produtoParaCSV(produto));
             }
         }
     }
-
 }
 

@@ -29,20 +29,32 @@ public class Main {
         EstoqueController estoqueController = new EstoqueController(estoque, escritorCSV);
         ClienteController clienteController = new ClienteController(clientes, clienteEscritorCSV);
 
-        clienteController.cadastraCliente("Boteco do Zé", "11231313131200");
-        clienteController.cadastraCliente("Sr Juca", "88822244466");
+//        clienteController.cadastraCliente("Boteco do Zé", "11231313131200");
+//        clienteController.cadastraCliente("Sr Juca", "88822244466");
 //
 //        estoqueController.renomearProduto("A01", "Ada Pielsen");
 
 
 //        estoqueController.cadastraProduto("A01","aaaa", "L0031", LocalDate.now(), 35); //String id, String nomeProduto, String lote, LocalDate validade, int quantidade
-//        estoqueController.verificaValidade();
+        estoqueController.removerProdutosVencidos();
 
-//        estoqueController.diminuiEstoque("A01", 15);
-//        estoqueController.diminuiEstoque("A01", 35);
-//        estoqueController.diminuiEstoque("A01", 35);
+        estoqueController.alterarQuantidadeDoProduto("A01", 15);
 
-//        estoqueController.escreverNovoCSV();
-        clienteController.escreverNovoCSV();
+//        clienteController.escreverNovoCSV();
+        System.out.println("Criando novo csv");
+        estoqueController.escreverNovoCSV();
+        System.out.println("Ver produtos do estoque:");
+        estoqueController.verProdutos();
+        System.out.println("Remover protuto especifico:");
+        estoqueController.removerProduto("A01","L002A");
+        System.out.println("Ver produtos do estoque");
+        estoqueController.verProdutos();
+        System.out.println("Remover todos os produtos");
+        estoqueController.removerTodosProdutos();
+        System.out.println("Ver produtos do estoque:");
+        estoqueController.verProdutos();
+        System.out.println("Criando novo csv");
+        estoqueController.escreverNovoCSV();
+
     }
 }
