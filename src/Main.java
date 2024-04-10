@@ -8,11 +8,17 @@ import service.csvService.Cliente.ClienteLeitorCSV;
 import service.csvService.Estoque.EscritorCSV;
 import service.csvService.Estoque.FormatadorDados;
 import service.csvService.Estoque.LeitorCSV;
+import view.Menu;
 
 import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
+
+//        while(true){
+//            Menu.menuPrincipal();
+//        }
+
         LeitorCSV leitorCSV = new LeitorCSV();
         ClienteLeitorCSV clientesCSV = new ClienteLeitorCSV();
 

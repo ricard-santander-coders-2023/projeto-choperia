@@ -1,5 +1,6 @@
 package model;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Cliente {
@@ -65,6 +66,13 @@ public class Cliente {
                 "\nnome: " + nome +
                 "\ndocumento: " + documento +
                 "\ntipo: " + tipo;
+    }
+
+    public String toStringFormatado() {
+        return id + " - " +
+                nome + " - " +
+                documento + " - " +
+                tipo;
     }
 }
 
