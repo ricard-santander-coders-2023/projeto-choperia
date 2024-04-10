@@ -43,13 +43,11 @@ public class Main {
 //        estoqueController.renomearProduto("A01", "Ada Pielsen");
 
 
-        estoqueController.adicionarProduto("A01","aaaa", "L0031", LocalDate.now(), 35); //String id, String nomeProduto, String lote, LocalDate validade, int quantidade
+        estoqueController.adicionarProduto("A01","aaaa", "L0031", LocalDate.now(), 15); //String id, String nomeProduto, String lote, LocalDate validade, int quantidade
         estoqueController.removerProdutosVencidos();
 //
 //        estoqueController.alterarQuantidadeDoProduto("A01", 15);
 //
-        System.out.println("Criando novo csv");
-        estoqueController.escreverNovoCSV();
         System.out.println("Ver produtos do estoque:");
         estoqueController.verProdutos();
         System.out.println("Remover protuto especifico:");
@@ -57,6 +55,10 @@ public class Main {
         System.out.println("Ver produtos do estoque");
         estoqueController.verProdutos();
         System.out.println("Remover todos os produtos");
+        System.out.println("Criando novo csv");
+        estoqueController.escreverNovoCSV();
+
+
         estoqueController.removerTodosProdutos();
         System.out.println("Ver produtos do estoque:");
         estoqueController.verProdutos();
