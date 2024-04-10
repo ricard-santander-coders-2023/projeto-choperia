@@ -4,6 +4,7 @@ import model.CadastroClientes;
 import model.Cliente;
 import service.csvService.Cliente.ClienteEscritorCSV;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -46,6 +47,35 @@ public class ClienteController {
 
     public void removeCliente(String documento) {
         clientes.getClientes().removeIf(cliente -> Objects.equals(cliente.getDocumento(), documento));
+    }
+
+    public void listarClientes(){
+        if (clientes.getClientes().isEmpty()){
+            System.out.println("Cadastro clientes vazio!");
+            return;
+        }
+
+        clientes.getClientes().forEach(cliente -> System.out.println(cliente.toStringFormatado()));
+    }
+
+    public boolean buscarCliente(String searchString) {
+        List<Cliente> clientesEncontrados = new ArrayList<>();
+
+        for (Cliente cliente : clientes.getClientes()) {
+            if (cliente.getNome().contains(searchString) ||
+                    cliente.getDocumento().contains(searchString)) {
+                System.out.println("----- Clientes Encontrados -----");
+                cliente.toStringFormatado();
+                clientesEncontrados.add(cliente);
+            }
+        }
+
+        if(clientesEncontrados.size() == 0){
+            System.out.println("Nenhum cliente encontrado");
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void renomearCliente(String documento, String novoNome) {

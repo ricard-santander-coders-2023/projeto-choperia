@@ -6,9 +6,11 @@ import service.csvService.Estoque.EscritorCSV;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class EstoqueController {
     private Estoque estoque;
@@ -66,19 +68,44 @@ public class EstoqueController {
         }
     }
 
-    public void removerProduto (String id, String lote) {
+    public boolean buscarProduto(String searchString) {
+        List<Produto> produtosEncontrados = new ArrayList<>();
+
+        for (Produto produto : estoque.getProdutos()) {
+            if (produto.getId().contains(searchString) ||
+                    produto.getNomeProduto().contains(searchString) ||
+                    produto.getLote().contains(searchString) ||
+                    produto.getValidade().toString().contains(searchString) ||
+                    String.valueOf(produto.getQuantidade()).contains(searchString)) {
+                System.out.println("----- Produtos Encontrados -----");
+                produto.toStringFormatado();
+                produtosEncontrados.add(produto);
+            }
+        }
+
+        if(produtosEncontrados.size() == 0){
+            System.out.println("Nenhum produto encontrado");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean removerProduto (String id, String lote) {
         boolean removido = estoque.getProdutos()
                                     .removeIf(produto -> produto.getId().equals(id) && produto.getLote().equals(lote));
         System.out.println(removido
                 ? "REMOVIDO ==> " + id + " - " + lote
                 : "Produto não encontrado com ID " + id + " e lote " + lote);
+
+        return removido;
     }
 
     public void removerTodosProdutos() {
         estoque.getProdutos().clear();
     }
 
-    public void alterarQuantidadeDoProduto(String idProduto, int quantidade) {
+    public boolean alterarQuantidadeDoProduto(String idProduto, int quantidade) {
         List<Produto> produtos = estoque.getProdutos().stream()
                 .filter(p -> p.getId().equals(idProduto))
                 .sorted(Comparator.comparing(Produto::getValidade).thenComparing(Produto::getLote))
@@ -86,22 +113,22 @@ public class EstoqueController {
 
         int quantidadeTotalDisponivel = produtos.stream().mapToInt(Produto::getQuantidade).sum();
 
-        for (Produto produto : produtos) {
-            int quantidadeDisponivel = produto.getQuantidade();
+        if (quantidadeTotalDisponivel < quantidade) {
+            System.out.println("Quantidade insuficiente em estoque.\nRestante: " + quantidadeTotalDisponivel + " litros");
+            return false;
+        }
 
-            if (quantidadeTotalDisponivel < quantidade) {
-                System.out.println(("Quantidade insuficiente em estoque.\nRestante: " + produtos.stream().mapToInt(Produto::getQuantidade).sum()) + " litros");
+        for (Produto produto : produtos) {
+            int quantidadeRemovida = Math.min(produto.getQuantidade(), quantidade);
+            produto.setQuantidade(String.valueOf(produto.getQuantidade() - quantidadeRemovida));
+            quantidade -= quantidadeRemovida;
+
+            if (quantidade == 0) {
                 break;
             }
-
-            if (quantidadeDisponivel >= quantidade) {
-                produto.setQuantidade(String.valueOf(quantidadeDisponivel - quantidade));
-                return;
-            } else if (quantidadeDisponivel > 0) {
-                produto.setQuantidade(String.valueOf(0));
-                quantidade -= quantidadeDisponivel;
-            }
         }
+
+        return true;
     }
 
     public void verProdutos(){
@@ -128,10 +155,10 @@ public class EstoqueController {
             }
         }
         if(nomeIgual){
-            System.out.println("Nome igual ao anterior. Operação cancelada!");
+            System.out.println("Nome igual ao anterior. Operação cancelada!\n");
             return;
         }
-        System.out.println(nomeAlterado? "Nome produto alterado com sucesso!": "Não há produtos com essa ID");
+        System.out.println(nomeAlterado? "Nome produto alterado com sucesso!\n": "Não há produtos com essa ID\n");
     }
 
     public void removerProdutosVencidos() {
